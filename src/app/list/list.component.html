@@ -1,0 +1,44 @@
+<div class="element-left">
+  <div class="element-bg-img"><img src="assets/images/1.jpg" alt="" class="img-responsive" /></div>
+  <div class="element-left-bottom">
+    <div class="ele-strip">
+      <ul>
+        <li (click)="onMenuSelect('hotel')"><a href="#">Hotel</a></li>
+        <li (click)="onMenuSelect('fishing')"><a href="#">Fishing</a></li>
+        <li (click)="onMenuSelect('tours')"><a href="#">Tours</a></li>
+        <li (click)="onMenuSelect('weather')" class="anc-bor"><a href="#">Weather</a></li>
+      </ul>
+    </div>
+    <div class="village">
+      <h3>Righteous indignation & like</h3>
+      <span class="line"> </span>
+      <div class="activity_box">
+        <div *ngIf="activeMenu === 'hotel'; else elseBlock" class="scrollbar" id="style-2">
+          <div
+            *ngFor="let hotel of hotels"
+            class="activity-row"
+            [ngClass]="{'active' : activeMenuItem === hotel.id}"
+            (click)="onItemClick(hotel.id)"
+          >
+            <div class="activity-desc">
+              <h5>{{ hotel.address }}</h5>
+              <p>{{ hotel.description }}</p>
+              <p>{{ hotel.address }}</p>
+              <h6>{{ hotel.phone }}</h6>
+            </div>
+            <div class="activity-img">
+              <ul>
+                <li><img src="{{ hotel.photos[0] }}" alt="" /></li>
+                <li><img src="{{ hotel.photos[1] }}" alt="" /></li>
+              </ul>
+            </div>
+            <div class="clear"></div>
+          </div>
+        </div>
+        <ng-template #elseBlock>
+          <p>{{ listModel[activeMenu] }}</p>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</div>
