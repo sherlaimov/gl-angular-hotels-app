@@ -1,14 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
-
+import { Component, Input } from '@angular/core';
+import { Hotel } from '../hotel';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss'],
 })
-export class ProfileComponent implements OnInit {
-  @Input() currentHotel;
-
-  constructor() {}
-
-  ngOnInit() {}
+export class ProfileComponent {
+  @Input() currentHotel: Hotel;
 }

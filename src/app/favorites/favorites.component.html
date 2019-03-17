@@ -1,0 +1,26 @@
+<div class="element-left favorites">
+  <div class="village">
+    <h3>Your Favorites</h3>
+    <span class="line"> </span>
+    <div class="activity_box">
+      <div class="scrollbar" id="style-2">
+        <div *ngFor="let hotel of favoriteHotels" class="activity-row">
+          <div class="activity-desc">
+            <h5>{{ hotel.address }}</h5>
+            <p>{{ hotel.description }}</p>
+            <p>{{ hotel.address }}</p>
+            <h6>{{ hotel.phone }}</h6>
+          </div>
+          <div class="activity-img">
+            <ul>
+              <li><img [src]="hotel.photos[0]" alt="" /></li>
+              <li><img [src]="hotel.photos[1]" alt="" /></li>
+            </ul>
+          </div>
+          <button class="remove" (click)="emitUnfavorHotelId(hotel.id)">X</button>
+          <div class="clear"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

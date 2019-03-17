@@ -1,24 +1,30 @@
 <div class="element-left">
-  <div class="element-bg-img"><img src="assets/images/1.jpg" alt="" class="img-responsive" /></div>
+  <div class="element-bg-img">
+    <img src="assets/images/1.jpg" alt="" class="img-responsive" />
+  </div>
   <div class="element-left-bottom">
     <div class="ele-strip">
       <ul>
-        <li (click)="onMenuSelect('hotel')"><a href="#">Hotel</a></li>
-        <li (click)="onMenuSelect('fishing')"><a href="#">Fishing</a></li>
-        <li (click)="onMenuSelect('tours')"><a href="#">Tours</a></li>
-        <li (click)="onMenuSelect('weather')" class="anc-bor"><a href="#">Weather</a></li>
+        <li (click)="sortByRating('All')"><a href="#">All</a></li>
+        <li (click)="sortByRating(3)"><a href="#">Three</a></li>
+        <li (click)="sortByRating(4)"><a href="#">Four</a></li>
+        <li (click)="sortByRating(5)" class="anc-bor"><a href="#">Five</a></li>
       </ul>
+      <label>
+        Search:
+        <input type="text" [value]="searchValue" [(ngModel)]="searchValue" />
+      </label>
     </div>
     <div class="village">
       <h3>Righteous indignation & like</h3>
       <span class="line"> </span>
       <div class="activity_box">
-        <div *ngIf="activeMenu === 'hotel'; else elseBlock" class="scrollbar" id="style-2">
+        <div class="scrollbar" id="style-2">
           <div
-            *ngFor="let hotel of hotels"
+            *ngFor="let hotel of (hotels | filterHotels: searchValue | sortByRating: starsNumber)"
             class="activity-row"
-            [ngClass]="{'active' : activeMenuItem === hotel.id}"
-            (click)="onItemClick(hotel.id)"
+            [ngClass]="{ active: selectedHotelId === hotel.id }"
+            (click)="selectHotel(hotel.id)"
           >
             <div class="activity-desc">
               <h5>{{ hotel.address }}</h5>
@@ -28,16 +34,14 @@
             </div>
             <div class="activity-img">
               <ul>
-                <li><img src="{{ hotel.photos[0] }}" alt="" /></li>
-                <li><img src="{{ hotel.photos[1] }}" alt="" /></li>
+                <li><img [src]="hotel.photos[0]" alt="" /></li>
+                <li><img [src]="hotel.photos[1]" alt="" /></li>
               </ul>
             </div>
+            <button class="favor" (click)="emitFavorites(hotel.id)">+ Add to Favorites</button>
             <div class="clear"></div>
           </div>
         </div>
-        <ng-template #elseBlock>
-          <p>{{ listModel[activeMenu] }}</p>
-        </ng-template>
       </div>
     </div>
   </div>

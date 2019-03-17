@@ -1,0 +1,12 @@
+.favorites {
+  .village {
+    border-radius: 5px 5px 5px 5px;
+  }
+  .remove {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    right: 0;
+    outline: none;
+  }
+}

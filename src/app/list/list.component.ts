@@ -1,33 +1,29 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Hotel } from '../hotel';
 
 @Component({
-  selector: 'element-left',
+  selector: 'app-list',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss'],
 })
-export class ListComponent implements OnInit {
+export class ListComponent {
   @Input() hotels: Hotel[];
-  @Input() activeMenu: string;
-  @Input() activeMenuItem: number;
+  @Input() selectedHotelId: number;
+  @Output() selectedHotel = new EventEmitter<number>();
+  @Output() addedFavoritesId = new EventEmitter<number>();
 
-  @Output() currentMenu = new EventEmitter<string>();
-  @Output() currentMenuItem = new EventEmitter<number>();
+  searchValue = '';
+  starsNumber: string | number = 'All';
 
-  listModel = {
-    fishing: "Let's go fishing",
-    tours: "You're in for a treat!",
-    weather: 'No worries, we shall arrange some sunshine',
-  };
-  constructor() {}
-
-  onMenuSelect(menuName: string): void {
-    this.currentMenu.emit(menuName);
+  public emitFavorites(hotelId: number): void {
+    this.addedFavoritesId.emit(hotelId);
   }
 
-  onItemClick(itemId: number) {
-    this.currentMenuItem.emit(itemId);
+  public sortByRating(value: string | number): void {
+    this.starsNumber = value;
   }
 
-  ngOnInit() {}
+  public selectHotel(itemId: number) {
+    this.selectedHotel.emit(itemId);
+  }
 }

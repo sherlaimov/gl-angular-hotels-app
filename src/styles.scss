@@ -1,3 +1,4 @@
+@import '~angular-notifier/styles';
 /* You can add global styles to this file, and also import other style files */
 /*--
 Author: W3layouts
@@ -343,6 +344,7 @@ ul li.anc-bor {
 }
 .activity-row,
 .activity-row1 {
+  position: relative;
   text-align: left;
 }
 i.text-info {
@@ -615,11 +617,12 @@ i.text-info {
 }
 
 div.activity-row {
+  position: relative;
+  padding: 0.8em;
   cursor: pointer;
 }
 
 div.active {
-  padding: 0.8em;
   background-color: #fff2e6;
 }
 
@@ -641,4 +644,8 @@ span.sun {
   width: 50px;
   height: 50px;
   display: inline-block;
+}
+
+.village {
+  margin-bottom: 1em;
 }

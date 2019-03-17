@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnInit } from '@angular/core';
+import { NotifierService } from 'angular-notifier';
 import { DataService } from './data.service';
 import { Hotel } from './hotel';
 
@@ -7,31 +8,50 @@ import { Hotel } from './hotel';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
-  hotels: Hotel[];
-  activeMenu: string = 'hotel';
-  activeMenuItem: number = 0;
-  currentHotel: Hotel;
+export class AppComponent implements OnInit {
+  private readonly notifier: NotifierService;
+  public hotels: Hotel[];
+  public selectedHotelId: number = 0;
+  public currentHotel: Hotel;
+  public favoriteHotels: Set<Hotel> = new Set();
 
-  constructor(private dataService: DataService) {}
-  
-  setMenu($e: EventEmitter<string>) {
-    this.activeMenu = String($e);
+  constructor(private dataService: DataService, notifierService: NotifierService) {
+    this.notifier = notifierService;
   }
-  setMenuItem($e: EventEmitter<number>) {
-    this.activeMenuItem = Number($e);
+
+  public addToFavorites(hotelId: number): void {
+    const favHotel: Hotel = this.hotels.find(hotel => hotel.id === hotelId);
+    if (this.favoriteHotels.has(favHotel)) {
+      this.notifier.notify('warning', `You've already added ${favHotel.title} hotel.`);
+      return;
+    }
+    this.favoriteHotels.add(favHotel);
+    this.notifier.notify('success', `You've favorited the ${favHotel.title} hotel.`);
+  }
+
+  public removeFromFavorites(hotelId: number): void {
+    this.favoriteHotels.forEach(hotel => {
+      if (hotel.id === hotelId) {
+        this.favoriteHotels.delete(hotel);
+        this.notifier.notify('success', `You've removed the ${hotel.title} hotel.`);
+      }
+    });
+  }
+
+  public setHotel($e: EventEmitter<number>) {
+    this.selectedHotelId = Number($e);
     this.setCurrentHotel();
   }
-  onMenuSelect(menuItem: string): void {
-    this.activeMenu = menuItem;
+
+  public setCurrentHotel(): void {
+    this.currentHotel = this.hotels.find(hotel => hotel.id === this.selectedHotelId);
   }
-  setCurrentHotel(): void {
-    this.currentHotel = this.hotels.find(hotel => hotel.id === this.activeMenuItem);
-  }
-  getData(): void {
+
+  private getData(): void {
     this.dataService.getData().subscribe(item => (this.hotels = item));
   }
-  ngOnInit() {
+
+  public ngOnInit() {
     this.getData();
     this.setCurrentHotel();
   }

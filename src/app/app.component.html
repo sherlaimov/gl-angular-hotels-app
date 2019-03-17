@@ -1,17 +1,21 @@
 <h1>Hot Weather Widget</h1>
 
 <div class="element">
-  <element-left
+  <app-list
     [hotels]="hotels"
-    [activeMenu]="activeMenu"
-    [activeMenuItem]="activeMenuItem"
-    (currentMenu)="setMenu($event)"
-    (currentMenuItem)="setMenuItem($event)"
-  ></element-left>
+    [selectedHotelId]="selectedHotelId"
+    (selectedHotel)="setHotel($event)"
+    (addedFavoritesId)="addToFavorites($event)"
+  ></app-list>
 
   <div class="element-right">
     <app-weather [currentHotel]="currentHotel"></app-weather>
     <app-profile [currentHotel]="currentHotel"></app-profile>
   </div>
   <div class="clear"></div>
+  <app-favorites
+    [favoriteHotels]="favoriteHotels"
+    (unfavorHotelId)="removeFromFavorites($event)"
+  ></app-favorites>
 </div>
+<notifier-container></notifier-container>
