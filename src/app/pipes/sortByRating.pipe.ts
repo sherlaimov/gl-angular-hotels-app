@@ -1,9 +1,9 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Hotel } from './hotel';
+import { IHotel } from '../interfaces/hotel';
 
 @Pipe({ name: 'sortByRating' })
 export class SortByRatingPipe implements PipeTransform {
-  transform(items: Hotel[], sortByValue: number | string): Hotel[] {
+  public transform(items: IHotel[], sortByValue: number | string): IHotel[] {
     if (!items) return [];
     if (sortByValue === 'All') return items;
     return items.filter(({ stars }) => stars === sortByValue);

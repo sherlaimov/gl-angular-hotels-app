@@ -1,12 +1,12 @@
-<div class="element-left favorites">
-  <div class="village">
+<div class="favorites grid-3">
+  <div class="village scrollbar">
     <h3>Your Favorites</h3>
     <span class="line"> </span>
     <div class="activity_box">
-      <div class="scrollbar" id="style-2">
-        <div *ngFor="let hotel of favoriteHotels" class="activity-row">
+      <div class="" id="style-2">
+        <div *ngFor="let hotel of (favoriteHotels | sortFavs)" class="activity-row-fav">
           <div class="activity-desc">
-            <h5>{{ hotel.address }}</h5>
+            <h5>{{ hotel.title }}</h5>
             <p>{{ hotel.description }}</p>
             <p>{{ hotel.address }}</p>
             <h6>{{ hotel.phone }}</h6>
@@ -18,6 +18,12 @@
             </ul>
           </div>
           <button class="remove" (click)="emitUnfavorHotelId(hotel.id)">X</button>
+          <div class="clear"></div>
+          <div class="vote-btns">
+            <span class="rating">{{ hotel.rating }}</span>
+            <span class="upvote" (click)="updateRating(hotel.id, 1)">Upvote</span>
+            <span class="downvote" (click)="updateRating(hotel.id, -1)">Downvote</span>
+          </div>
           <div class="clear"></div>
         </div>
       </div>

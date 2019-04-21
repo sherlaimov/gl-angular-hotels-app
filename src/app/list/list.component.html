@@ -1,33 +1,36 @@
-<div class="element-left">
+<div class="grid-3">
   <div class="element-bg-img">
     <img src="assets/images/1.jpg" alt="" class="img-responsive" />
   </div>
   <div class="element-left-bottom">
     <div class="ele-strip">
       <ul>
-        <li (click)="sortByRating('All')"><a href="#">All</a></li>
-        <li (click)="sortByRating(3)"><a href="#">Three</a></li>
-        <li (click)="sortByRating(4)"><a href="#">Four</a></li>
-        <li (click)="sortByRating(5)" class="anc-bor"><a href="#">Five</a></li>
+        <li (click)="sortByRating('All')"><a>All</a></li>
+        <li (click)="sortByRating(3)"><a>Three</a></li>
+        <li (click)="sortByRating(4)"><a>Four</a></li>
+        <li (click)="sortByRating(5)" class="anc-bor"><a>Five</a></li>
       </ul>
       <label>
         Search:
         <input type="text" [value]="searchValue" [(ngModel)]="searchValue" />
       </label>
+      <app-pagination [hotelsTotal]="allHotels?.length" [link]="link"> </app-pagination>
     </div>
-    <div class="village">
-      <h3>Righteous indignation & like</h3>
+    <div class="village scrollbar">
+      <h3>Your hotel selection</h3>
       <span class="line"> </span>
       <div class="activity_box">
-        <div class="scrollbar" id="style-2">
+        <div class="" id="style-2">
           <div
-            *ngFor="let hotel of (hotels | filterHotels: searchValue | sortByRating: starsNumber)"
+            *ngFor="
+              let hotel of (shownHotels | filterHotels: searchValue | sortByRating: starsNumber)
+            "
             class="activity-row"
             [ngClass]="{ active: selectedHotelId === hotel.id }"
             (click)="selectHotel(hotel.id)"
           >
             <div class="activity-desc">
-              <h5>{{ hotel.address }}</h5>
+              <h5>{{ hotel.title }}</h5>
               <p>{{ hotel.description }}</p>
               <p>{{ hotel.address }}</p>
               <h6>{{ hotel.phone }}</h6>
@@ -38,7 +41,10 @@
                 <li><img [src]="hotel.photos[1]" alt="" /></li>
               </ul>
             </div>
-            <button class="favor" (click)="emitFavorites(hotel.id)">+ Add to Favorites</button>
+            <div class="clear"></div>
+            <button class="favor" (click)="emitFavorites($event, hotel.id)">
+              + Add to Favorites
+            </button>
             <div class="clear"></div>
           </div>
         </div>

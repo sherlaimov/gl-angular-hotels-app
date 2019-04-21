@@ -1,0 +1,286 @@
+{
+  "hotels": [
+    {
+      "id": 1,
+      "title": "Marriott",
+      "address": "Orlando",
+      "description": "Best one!",
+      "phone": "+3242353434",
+      "picture": "assets/images/hotel-1.png",
+      "photos": [
+        "assets/images/hotel-1.png",
+        "assets/images/hotel-2.png"
+      ],
+      "weather": {
+        "temperature": 12,
+        "wind": 11,
+        "icon": "sun"
+      },
+      "profile": {
+        "followers": 112,
+        "following": 11,
+        "photo": "assets/images/profile-1.png"
+      },
+      "stars": 3
+    },
+    {
+      "id": 2,
+      "title": "Liberal Arts Hotel",
+      "address": "Kharkov",
+      "description": "Five Stars",
+      "phone": "+3242353434",
+      "picture": "assets/images/hotel-3.png",
+      "photos": [
+        "assets/images/hotel-3.png",
+        "assets/images/hotel-4.png"
+      ],
+      "weather": {
+        "temperature": 5,
+        "wind": 4,
+        "icon": "rain"
+      },
+      "profile": {
+        "followers": 201,
+        "following": 318,
+        "photo": "assets/images/profile-2.png"
+      },
+      "stars": 4
+    },
+    {
+      "id": 3,
+      "title": "Rat Trap",
+      "address": "England, Swindon",
+      "description": "Best cheese selection around",
+      "phone": "+3242353434",
+      "picture": "assets/images/rat-trap.png",
+      "photos": [
+        "assets/images/rat-trap.png",
+        "assets/images/rat-trap-2.png"
+      ],
+      "weather": {
+        "temperature": -2,
+        "wind": 2,
+        "icon": "cloud"
+      },
+      "profile": {
+        "followers": 444,
+        "following": 21,
+        "photo": "assets/images/profile-3.png"
+      },
+      "stars": 5
+    },
+    {
+      "id": 4,
+      "title": "High Road Motel",
+      "address": "The Middle of Nowhere",
+      "description": "Cheap soda and free laundry",
+      "phone": "+3242353434",
+      "picture": "assets/images/hotel-5.png",
+      "photos": [
+        "assets/images/res.jpg",
+        "assets/images/r1.jpg"
+      ],
+      "weather": {
+        "temperature": -2,
+        "wind": 2,
+        "icon": "cloud"
+      },
+      "profile": {
+        "followers": 54,
+        "following": 150,
+        "photo": "assets/images/profile-4.png"
+      },
+      "stars": 5
+    },
+    {
+      "id": 5,
+      "title": "Hilton International",
+      "address": "Las Vegas",
+      "description": "",
+      "phone": "+3242353434",
+      "picture": "assets/images/hotel-5.png",
+      "photos": [
+        "assets/images/hotel-5.png",
+        "assets/images/hotel-4.png"
+      ],
+      "weather": {
+        "temperature": -2,
+        "wind": 2,
+        "icon": "sun"
+      },
+      "profile": {
+        "followers": 125,
+        "following": 7,
+        "photo": "assets/images/profile-5.png"
+      },
+      "stars": 5
+    },
+    {
+      "id": 6,
+      "title": "Friends Hostel",
+      "address": "Green Park, London",
+      "description": "You will never sleep alone here ;)",
+      "phone": "+440430234534",
+      "picture": "assets/images/hostel-2.png",
+      "photos": [
+        "assets/images/hostel-1.png",
+        "assets/images/hostel-3.png"
+      ],
+      "weather": {
+        "temperature": -2,
+        "wind": 2,
+        "icon": "sun"
+      },
+      "profile": {
+        "followers": 125,
+        "following": 7,
+        "photo": "assets/images/profile-7.png"
+      },
+      "stars": 1
+    },
+    {
+      "id": 7,
+      "title": "Mad Dog Hotel",
+      "address": "Amsterdam",
+      "description": "Worst hotel you've seen. You'll love it!",
+      "phone": "+440430234534",
+      "picture": "assets/images/hotel-8.png",
+      "photos": [
+        "assets/images/hotel-8.png",
+        "assets/images/hotel-9.png"
+      ],
+      "weather": {
+        "temperature": 15,
+        "wind": 4,
+        "icon": "sun"
+      },
+      "profile": {
+        "followers": 125,
+        "following": 7,
+        "photo": "assets/images/profile-6.png"
+      },
+      "stars": 4
+    },
+    {
+      "id": 8,
+      "title": "Golden Heaven",
+      "address": "Moscow",
+      "description": "Right in the heart of the city center. Best view!",
+      "phone": "+440430234534",
+      "picture": "assets/images/hotel-10.png",
+      "photos": [
+        "assets/images/hotel-7.png",
+        "assets/images/hotel-4.png"
+      ],
+      "weather": {
+        "temperature": -9,
+        "wind": 4,
+        "icon": "cloud"
+      },
+      "profile": {
+        "followers": 125,
+        "following": 7,
+        "photo": "assets/images/profile-8.png"
+      },
+      "stars": 5
+    },
+    {
+      "id": 9,
+      "title": "House of Cards",
+      "address": "Wayoming",
+      "description": "The royal intrigues hotel",
+      "phone": "+440430234534",
+      "picture": "assets/images/hotel-8.png",
+      "photos": [
+        "assets/images/hotel-8.png",
+        "assets/images/hotel-9.png"
+      ],
+      "weather": {
+        "temperature": 20,
+        "wind": 4,
+        "icon": "sun"
+      },
+      "profile": {
+        "followers": 1000,
+        "following": 1,
+        "photo": "assets/images/kevin-spacey.png"
+      },
+      "stars": 4
+    },
+    {
+      "id": 10,
+      "title": "Fake Taxi Hotel",
+      "address": "Dagestan",
+      "description": "Best rides at best price!",
+      "phone": "+440430234534",
+      "picture": "assets/images/hotel-10.png",
+      "photos": [
+        "assets/images/hotel-7.png",
+        "assets/images/hotel-4.png"
+      ],
+      "weather": {
+        "temperature": -9,
+        "wind": 4,
+        "icon": "cloud"
+      },
+      "profile": {
+        "followers": 234,
+        "following": 301,
+        "photo": "assets/images/profile-8.png"
+      },
+      "stars": 5
+    },
+    {
+      "id": 11,
+      "title": "Doomsday Hotel",
+      "address": "New York",
+      "description": "First-hand doomsday experience.",
+      "phone": "+440430234534",
+      "picture": "assets/images/hotel-2.png",
+      "photos": [
+        "assets/images/hotel-3.png",
+        "assets/images/hotel-9.png"
+      ],
+      "weather": {
+        "temperature": 26,
+        "wind": 4,
+        "icon": "sun"
+      },
+      "profile": {
+        "followers": 1234,
+        "following": 2,
+        "photo": "assets/images/kevin-spacey.png"
+      },
+      "stars": 4
+    },
+    {
+      "id": 12,
+      "title": "Science Hotel",
+      "address": "Kharkiv",
+      "description": "The nerdiest hotel in the world.",
+      "phone": "+440430234534",
+      "picture": "assets/images/hotel-11.png",
+      "photos": [
+        "assets/images/hotel-4.png",
+        "assets/images/hotel-5.png"
+      ],
+      "weather": {
+        "temperature": -9,
+        "wind": 4,
+        "icon": "cloud"
+      },
+      "profile": {
+        "followers": 234,
+        "following": 301,
+        "photo": "assets/images/profile-3.png"
+      },
+      "stars": 2
+    }
+  ],
+  "favorites": [
+    {
+      "id": 5,
+      "rating": 0
+    }
+  ]
+}

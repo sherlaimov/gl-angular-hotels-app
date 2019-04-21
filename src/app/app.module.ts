@@ -7,10 +7,13 @@ import { AppComponent } from './app.component';
 import { ListComponent } from './list/list.component';
 import { WeatherComponent } from './weather/weather.component';
 import { ProfileComponent } from './profile/profile.component';
-import { FilterPipe } from './filterHotels.pipe';
-import { SortByRatingPipe } from './sortByRating.pipe';
+import { HttpClientModule } from '@angular/common/http';
+import { FilterPipe } from './pipes/filterHotels.pipe';
+import { SortByRatingPipe } from './pipes/sortByRating.pipe';
+import { SortByFavsPipe } from './pipes/sortFavs.pipe';
 import { FavoritesComponent } from './favorites/favorites.component';
 import { NotifierModule, NotifierOptions } from 'angular-notifier';
+import { PaginationComponent } from './list/pagination/pagination.component';
 
 const customNotifierOptions: NotifierOptions = {
   position: {
@@ -59,11 +62,14 @@ const customNotifierOptions: NotifierOptions = {
     ListComponent,
     WeatherComponent,
     ProfileComponent,
+    FavoritesComponent,
     FilterPipe,
     SortByRatingPipe,
-    FavoritesComponent,
+    SortByFavsPipe,
+    PaginationComponent,
   ],
   imports: [
+    HttpClientModule,
     BrowserModule,
     AppRoutingModule,
     FormsModule,

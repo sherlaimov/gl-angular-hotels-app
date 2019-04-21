@@ -1,9 +1,9 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Hotel } from './hotel';
+import { IHotel } from '../interfaces/hotel';
 
 @Pipe({ name: 'filterHotels' })
 export class FilterPipe implements PipeTransform {
-  transform(items: Hotel[], searchText: string): Hotel[] | [] {
+  public transform(items: IHotel[], searchText: string): IHotel[] | [] {
     if (!items) return [];
     if (!searchText) return items;
     searchText = searchText.toLowerCase();

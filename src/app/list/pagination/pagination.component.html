@@ -1,0 +1,18 @@
+<nav class="pagination" *ngIf="hotelsTotal > 0">
+  <button class="link" (click)="onPrev()" [attr.disabled]="currPage === 1 ? '' : null">
+    Prev
+  </button>
+  <ul>
+    <li
+      *ngFor="let pageNum of pages"
+      (click)="onPage($event, pageNum)"
+      [ngClass]="{ active: pageNum === currPage }"
+    >
+      <a href>{{ pageNum }}</a>
+    </li>
+  </ul>
+
+  <button class="link" (click)="onNext()" [attr.disabled]="nextPage === undefined ? '' : null">
+    Next
+  </button>
+</nav>

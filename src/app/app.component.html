@@ -1,21 +1,24 @@
-<h1>Hot Weather Widget</h1>
+<h1>Hotels in Your Neighborhood</h1>
 
 <div class="element">
-  <app-list
-    [hotels]="hotels"
-    [selectedHotelId]="selectedHotelId"
-    (selectedHotel)="setHotel($event)"
-    (addedFavoritesId)="addToFavorites($event)"
-  ></app-list>
-
-  <div class="element-right">
-    <app-weather [currentHotel]="currentHotel"></app-weather>
-    <app-profile [currentHotel]="currentHotel"></app-profile>
-  </div>
-  <div class="clear"></div>
   <app-favorites
     [favoriteHotels]="favoriteHotels"
     (unfavorHotelId)="removeFromFavorites($event)"
   ></app-favorites>
+
+  <app-list
+    [allHotels]="allHotels"
+    [shownHotels]="shownHotels"
+    [selectedHotelId]="selectedHotelId"
+    [link]="link"
+    (selectedHotel)="setHotel($event)"
+    (addedFavoritesId)="addToFavorites($event)"
+  ></app-list>
+
+  <div class="grid-3">
+    <app-weather *ngIf="currentHotel" [currentHotel]="currentHotel"></app-weather>
+    <app-profile *ngIf="currentHotel" [currentHotel]="currentHotel"></app-profile>
+  </div>
+  <div class="clear"></div>
 </div>
 <notifier-container></notifier-container>

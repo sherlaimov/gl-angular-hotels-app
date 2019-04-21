@@ -1,0 +1,26 @@
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 0.7em;
+  button {
+    font-size: 0.5em;
+    display: inline;
+    cursor: pointer;
+  }
+
+  ul {
+    display: inline;
+  }
+  li {
+    border: none;
+    display: inline;
+  }
+  li.active {
+    background-color: #8e5324;
+    border-radius: 0.1em;
+  }
+  li > a {
+    font-size: 0.8em;
+    padding: 0.3em;
+  }
+}

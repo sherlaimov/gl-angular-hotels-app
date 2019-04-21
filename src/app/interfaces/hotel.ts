@@ -1,4 +1,4 @@
-export interface Hotel {
+export interface IHotel {
   id: number;
   title: string;
   address: string;
@@ -9,4 +9,5 @@ export interface Hotel {
   weather: { [key: string]: number | string };
   profile: { [key: string]: number | string };
   stars: number;
+  rating: number;
 }

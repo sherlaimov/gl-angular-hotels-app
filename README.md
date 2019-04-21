@@ -1,5 +1,7 @@
 # HotelsAppGlHw
 
+Run `npm start` to start both the Angular app and the typicode json-server.
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.5.
 
 ## Development server

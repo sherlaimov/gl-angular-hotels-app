@@ -1,5 +1,5 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { Hotel } from '../hotel';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { IHotel } from '../interfaces/hotel';
 
 @Component({
   selector: 'app-list',
@@ -7,15 +7,17 @@ import { Hotel } from '../hotel';
   styleUrls: ['./list.component.scss'],
 })
 export class ListComponent {
-  @Input() hotels: Hotel[];
-  @Input() selectedHotelId: number;
-  @Output() selectedHotel = new EventEmitter<number>();
-  @Output() addedFavoritesId = new EventEmitter<number>();
+  public searchValue: string = '';
+  public starsNumber: string | number = 'All';
+  @Input() public shownHotels: IHotel[];
+  @Input() public allHotels: IHotel[];
+  @Input() public selectedHotelId: number;
+  @Input() public link: string;
+  @Output() public selectedHotel: EventEmitter<number> = new EventEmitter<number>();
+  @Output() public addedFavoritesId: EventEmitter<number> = new EventEmitter<number>();
 
-  searchValue = '';
-  starsNumber: string | number = 'All';
-
-  public emitFavorites(hotelId: number): void {
+  public emitFavorites(e: Event, hotelId: number): void {
+    e.stopPropagation();
     this.addedFavoritesId.emit(hotelId);
   }
 
@@ -23,7 +25,7 @@ export class ListComponent {
     this.starsNumber = value;
   }
 
-  public selectHotel(itemId: number) {
+  public selectHotel(itemId: number): void {
     this.selectedHotel.emit(itemId);
   }
 }

@@ -201,7 +201,7 @@ h1 {
   font-family: 'Quicksand', sans-serif;
 }
 .element {
-  width: 40%;
+  width: 70%;
   margin: 0 auto 7em;
 }
 .ele-strip {
@@ -332,16 +332,18 @@ ul li.anc-bor {
 .grid-2,
 .grid-3,
 .grid-4 {
-  display: inline-block;
+  // display: inline-block;
+  float: left;
 }
 .grid-1 {
   margin-bottom: 2em;
 }
 .grid-1,
 .grid-3 {
-  margin-right: 10%;
+  margin-right: 5%;
   width: 27%;
 }
+
 .activity-row,
 .activity-row1 {
   position: relative;
@@ -357,6 +359,7 @@ i.text-info {
 }
 .activity-img img {
   display: inline-block;
+  max-width: 50%;
 }
 .activity-desc h5 {
   color: #000;
@@ -369,7 +372,7 @@ i.text-info {
 }
 .activity-desc p {
   color: #999;
-  font-size: 0.94em;
+  font-size: 0.7em;
   line-height: 1.7em;
 }
 .activity-desc h6 {
@@ -380,6 +383,7 @@ i.text-info {
 }
 .activity-row {
   margin-bottom: 1em;
+  border-bottom: 1px solid #c4c4c4;
 }
 .scrollbar {
   height: 115px;
@@ -415,7 +419,7 @@ i.text-info {
   display: inline-block;
 }
 .activity-img ul li img {
-  border-radius: 50px;
+  border-radius: 10%;
 }
 /*--village start here--*/
 .village {
@@ -621,6 +625,13 @@ div.activity-row {
   padding: 0.8em;
   cursor: pointer;
 }
+.activity-row-fav {
+  position: relative;
+  text-align: left;
+  margin-bottom: 1em;
+  padding: 0.8em;
+  border-bottom: 1px solid #c4c4c4;
+}
 
 div.active {
   background-color: #fff2e6;
@@ -646,6 +657,28 @@ span.sun {
   display: inline-block;
 }
 
+.vote-btns {
+  span {
+    font-size: 0.6em;
+    color: #b9b9b9;
+    padding: 2px;
+    border: 1px solid #b9b9b9;
+    margin-left: 0.5em;
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    -webkit-touch-callout: none;
+    -o-user-select: none;
+    -moz-user-select: none;
+  }
+  span.rating {
+    border: none;
+    cursor: auto;
+  }
+}
+
 .village {
+  min-height: 255px;
   margin-bottom: 1em;
 }
