@@ -13,7 +13,9 @@ import { SortByRatingPipe } from './pipes/sortByRating.pipe';
 import { SortByFavsPipe } from './pipes/sortFavs.pipe';
 import { FavoritesComponent } from './favorites/favorites.component';
 import { NotifierModule, NotifierOptions } from 'angular-notifier';
+import { MatPaginatorModule } from '@angular/material';
 import { PaginationComponent } from './list/pagination/pagination.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 const customNotifierOptions: NotifierOptions = {
   position: {
@@ -74,6 +76,8 @@ const customNotifierOptions: NotifierOptions = {
     AppRoutingModule,
     FormsModule,
     NotifierModule.withConfig(customNotifierOptions),
+    BrowserAnimationsModule,
+    MatPaginatorModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

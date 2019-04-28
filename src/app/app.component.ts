@@ -4,6 +4,7 @@ import { DataService } from './data.service';
 import { IHotel } from './interfaces/hotel';
 import { IFav } from './interfaces/fav';
 import { HttpParams } from '@angular/common/http';
+import { PageEvent } from '@angular/material/paginator';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -24,9 +25,13 @@ export class AppComponent implements OnInit, OnDestroy {
   private readonly notifier: NotifierService;
 
   public constructor(private dataService: DataService, notifierService: NotifierService) {
-    this.dataService.hotelsAction$.subscribe((action: string) => {
+    this.dataService.hotelsAction$.subscribe((event: { action: string; payload: PageEvent }) => {
+      const { action, payload } = event;
       if (action === 'getHotels') {
         this.getHotels();
+      }
+      if (action === 'getHotelsT') {
+        this.getHotelsT(payload);
       }
     });
     this.notifier = notifierService;
@@ -91,6 +96,16 @@ export class AppComponent implements OnInit, OnDestroy {
         this.link = link;
       });
   }
+
+  private getHotelsT(payload: PageEvent): void {
+    console.log(payload);
+    this.shownHotelSubscriber = this.dataService
+      .getHotelsT(payload)
+      .subscribe((hotels: IHotel[]) => {
+        this.shownHotels = hotels;
+      });
+  }
+
   private getFavorites(): void {
     this.favSubscriber = this.dataService.getFavorites().subscribe((favs: IFav[]) => {
       const onlyFavHotels: IHotel[] = favs

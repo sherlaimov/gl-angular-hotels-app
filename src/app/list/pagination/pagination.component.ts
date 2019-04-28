@@ -23,17 +23,17 @@ export class PaginationComponent implements OnChanges {
   public onPage($e: Event, pageNum: number): void {
     $e.preventDefault();
     this.dataService.setHttpParams({ _page: pageNum, _limit: this.perPageLimit });
-    this.dataService.emitHotelsAction('getHotels');
+    this.dataService.emitHotelsAction('getHotels', {});
     this.currPage = pageNum;
   }
   public onPrev(): void {
     this.dataService.setHttpParams({ _page: this.prevPage, _limit: this.perPageLimit });
-    this.dataService.emitHotelsAction('getHotels');
+    this.dataService.emitHotelsAction('getHotels', {});
     this.currPage = this.prevPage;
   }
   public onNext(): void {
     this.dataService.setHttpParams({ _page: this.nextPage, _limit: this.perPageLimit });
-    this.dataService.emitHotelsAction('getHotels');
+    this.dataService.emitHotelsAction('getHotels', {});
     this.currPage = this.nextPage;
   }
 

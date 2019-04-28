@@ -4,6 +4,7 @@ import { Observable, of, Subject } from 'rxjs';
 import { catchError, tap, map } from 'rxjs/operators';
 import { IHotel } from './interfaces/hotel';
 import { IFav } from './interfaces/fav';
+import { PageEvent } from '@angular/material/paginator';
 
 import { environment } from '../environments/environment';
 
@@ -18,24 +19,24 @@ const httpOptions = {
   providedIn: 'root',
 })
 export class DataService {
-  public actionSource: Subject<string> = new Subject<string>();
-  public hotelsAction$: Observable<string> = this.actionSource.asObservable();
+  public actionSource: Subject<string | {}> = new Subject<string | {}>();
+  public hotelsAction$: Observable<string | {}> = this.actionSource.asObservable();
   private apiUrl: string = environment.api;
   private hotelsUrl: string = 'hotels';
   private favoritesUrl: string = 'favorites';
   private params: HttpParams = new HttpParams().set('_page', '1').set('_limit', '3');
 
-  private constructor(private http: HttpClient) {}
+  private constructor(private _http: HttpClient) {}
 
-  public emitHotelsAction(action: string): void {
-    this.actionSource.next(action);
+  public emitHotelsAction(action: string, payload: {}): void {
+    this.actionSource.next({ action, payload });
   }
 
   public setHttpParams(params: {}): void {
     this.params = new HttpParams({ fromObject: params });
   }
   public getHotels(): Observable<{ hotels: IHotel[]; link: string }> {
-    return this.http
+    return this._http
       .get<{ hotels: IHotel[]; link: string }>(`${this.apiUrl}/${this.hotelsUrl}`, {
         observe: 'response',
         params: this.params,
@@ -50,8 +51,25 @@ export class DataService {
       );
   }
 
+  public getHotelsT(event: PageEvent): Observable<IHotel[]> {
+    const params: HttpParams = new HttpParams({
+      fromObject: {
+        _limit: String(event.pageSize),
+        _page: String(event.pageIndex),
+      },
+    });
+
+    return this._http.get<IHotel[]>(`${this.apiUrl}/hotels`, { ...httpOptions, params }).pipe(
+      catchError((error: Error) => {
+        console.log(error);
+        // show popu
+        return of([]);
+      })
+    );
+  }
+
   public getAllHotels(): Observable<IHotel[]> {
-    const hotels: Observable<IHotel[]> = this.http
+    const hotels: Observable<IHotel[]> = this._http
       .get<IHotel[]>(`${this.apiUrl}/${this.hotelsUrl}`)
       .pipe(catchError(this.handleError<IHotel[]>('getHotels', [])));
 
@@ -59,13 +77,13 @@ export class DataService {
   }
 
   public getFavorites(): Observable<IFav[]> {
-    return this.http
+    return this._http
       .get<IFav[]>(`${this.apiUrl}/${this.favoritesUrl}`, httpOptions)
       .pipe(catchError((e: IFav[]) => of(e)));
   }
 
   public updateRatingById(id: number, rating: number): Observable<{}> {
-    return this.http
+    return this._http
       .patch<{}>(`${this.apiUrl}/${this.favoritesUrl}/${id}`, { rating }, httpOptions)
       .pipe(catchError((e: Observable<{}>) => e));
   }
@@ -75,14 +93,14 @@ export class DataService {
       id,
       rating: 0,
     };
-    return this.http
+    return this._http
       .post(`${this.apiUrl}/${this.favoritesUrl}`, payload, httpOptions)
       .pipe(catchError(this.handleError<any>('favorHotel')));
   }
 
   public unfavorHotel(id: number): Observable<{}> {
     const url: string = `${this.apiUrl}/${this.favoritesUrl}/${id}`;
-    return this.http.delete(url, httpOptions);
+    return this._http.delete(url, httpOptions);
   }
 
   private handleError<T>(operation = 'operation', result?: T) {

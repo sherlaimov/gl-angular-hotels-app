@@ -14,7 +14,15 @@
         Search:
         <input type="text" [value]="searchValue" [(ngModel)]="searchValue" />
       </label>
-      <app-pagination [hotelsTotal]="allHotels?.length" [link]="link"> </app-pagination>
+      <!-- <app-pagination [hotelsTotal]="allHotels?.length" [link]="link"> </app-pagination>
+       -->
+      <mat-paginator
+        [length]="allHotels?.length"
+        [pageSize]="3"
+        hidePageSize="true"
+        (page)="changePage($event)"
+      >
+      </mat-paginator>
     </div>
     <div class="village scrollbar">
       <h3>Your hotel selection</h3>
@@ -23,7 +31,7 @@
         <div class="" id="style-2">
           <div
             *ngFor="
-              let hotel of (shownHotels | filterHotels: searchValue | sortByRating: starsNumber)
+              let hotel of shownHotels | filterHotels: searchValue | sortByRating: starsNumber
             "
             class="activity-row"
             [ngClass]="{ active: selectedHotelId === hotel.id }"

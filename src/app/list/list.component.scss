@@ -19,3 +19,14 @@ label {
     }
   }
 }
+.mat-paginator {
+  background-color: transparent;
+  .mat-paginator-outer-container {
+  }
+}
+.mat-paginator-container {
+  background-color: aquamarine;
+  color: red;
+  min-height: 30px;
+  height: 30px;
+}
