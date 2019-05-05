@@ -1,83 +1,51 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-
+// import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { ListComponent } from './list/list.component';
-import { WeatherComponent } from './weather/weather.component';
-import { ProfileComponent } from './profile/profile.component';
 import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NotifierModule } from 'angular-notifier';
+
+import { AppComponent } from './app.component';
+import { HotelsComponent } from './components/hotels/hotels.component';
+import { ProfileComponent } from './components/profile/profile.component';
+import { WeatherComponent } from './components/weather/weather.component';
 import { FilterPipe } from './pipes/filterHotels.pipe';
 import { SortByRatingPipe } from './pipes/sortByRating.pipe';
 import { SortByFavsPipe } from './pipes/sortFavs.pipe';
-import { FavoritesComponent } from './favorites/favorites.component';
-import { NotifierModule, NotifierOptions } from 'angular-notifier';
-import { MatPaginatorModule } from '@angular/material';
-import { PaginationComponent } from './list/pagination/pagination.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
-const customNotifierOptions: NotifierOptions = {
-  position: {
-    horizontal: {
-      position: 'left',
-      distance: 12,
-    },
-    vertical: {
-      position: 'bottom',
-      distance: 12,
-      gap: 10,
-    },
-  },
-  theme: 'material',
-  behaviour: {
-    autoHide: 2500,
-    onClick: 'hide',
-    onMouseover: 'pauseAutoHide',
-    showDismissButton: true,
-    stacking: 4,
-  },
-  animations: {
-    enabled: true,
-    show: {
-      preset: 'slide',
-      speed: 300,
-      easing: 'ease',
-    },
-    hide: {
-      preset: 'fade',
-      speed: 300,
-      easing: 'ease',
-      offset: 50,
-    },
-    shift: {
-      speed: 300,
-      easing: 'ease',
-    },
-    overlap: 150,
-  },
-};
+import { FavoritesComponent } from './components/favorites/favorites.component';
+import { customNotifierOptions } from './notifier.config';
+import { MaterialModule } from './material';
+import { MainNavComponent } from './components/main-nav/main-nav.component';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { HotelDetailsComponent } from './components/hotel-details/hotel-details.component';
+import { HotelsFiltersComponent } from './components/hotels/hotels-filters/hotels-filters.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ListComponent,
+    HotelsComponent,
     WeatherComponent,
     ProfileComponent,
     FavoritesComponent,
     FilterPipe,
     SortByRatingPipe,
     SortByFavsPipe,
-    PaginationComponent,
+    MainNavComponent,
+    PageNotFoundComponent,
+    HotelDetailsComponent,
+    HotelsFiltersComponent,
   ],
   imports: [
     HttpClientModule,
     BrowserModule,
     AppRoutingModule,
-    FormsModule,
+    // FormsModule,
+    ReactiveFormsModule,
     NotifierModule.withConfig(customNotifierOptions),
     BrowserAnimationsModule,
-    MatPaginatorModule,
+    MaterialModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

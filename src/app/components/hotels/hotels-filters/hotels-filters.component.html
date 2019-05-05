@@ -1,0 +1,34 @@
+<div class="hotels-filters">
+  <form [formGroup]="registerForm">
+    <mat-form-field class="example-full-width">
+      <input
+        matInput
+        #search
+        type="search"
+        name="search"
+        placeholder="Search by hotel name"
+        formControlName="search"
+      />
+      <mat-hint align="start"><strong>For example, 'Marriott'</strong> </mat-hint>
+    </mat-form-field>
+  </form>
+  <div>
+    <h5>Hotel ranking</h5>
+    <mat-button-toggle-group multiple name="fontStyle" aria-label="Font Style">
+      <mat-button-toggle
+        mat-raised-button
+        (change)="sortByRating($event)"
+        *ngFor="let number of rankingOptions"
+        value="{{ number }}"
+        type="checkbox"
+      >
+        <mat-icon
+          *ngFor="let number of Arr(number).fill(1)"
+          aria-hidden="false"
+          aria-label="star icon"
+          >star</mat-icon
+        >
+      </mat-button-toggle>
+    </mat-button-toggle-group>
+  </div>
+</div>

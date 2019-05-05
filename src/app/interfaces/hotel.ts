@@ -7,7 +7,7 @@ export interface IHotel {
   picture: string;
   photos: string[];
   weather: { [key: string]: number | string };
-  profile: { [key: string]: number | string };
+  profile: { followers: number; following: number; photo: string };
   stars: number;
   rating: number;
 }

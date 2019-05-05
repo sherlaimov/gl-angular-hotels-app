@@ -1,0 +1,63 @@
+<app-hotels-filters
+  (searchValue)="setSearchValue($event)"
+  (sortValues)="setSortValues($event)"
+></app-hotels-filters>
+<main>
+  <mat-card
+    *ngFor="let hotel of shownHotels | filterHotels: searchValue | sortByRating: sortValuesMap"
+    class="activity-row"
+    [ngClass]="{ active: selectedHotelId === hotel.id }"
+    routerLink="/hotels/{{ hotel.id }}"
+  >
+    <!-- (click)="openHotel(hotel.id)" -->
+    <mat-card-header>
+      <img mat-card-avatar class="example-header-image" [src]="hotel.profile?.photo" />
+      <mat-card-title>{{ hotel.title }}</mat-card-title>
+      <mat-card-subtitle>{{ hotel.address }}</mat-card-subtitle>
+      <mat-card-subtitle>{{ hotel.phone }}</mat-card-subtitle>
+    </mat-card-header>
+    <img mat-card-image [src]="hotel.photos[0]" alt="Photo of {{ hotel.title }}" />
+    <mat-card-content>
+      <p>
+        {{ hotel.description }}
+      </p>
+      <mat-card-actions>
+        <button
+          mat-button
+          mat-stroked-button
+          color="primary"
+          class="favor"
+          (click)="addToFavorites($event, hotel.id)"
+        >
+          Favor
+          <mat-icon class="example-icon" aria-hidden="false" aria-label="Example heart icon"
+            >favorite</mat-icon
+          >
+        </button>
+      </mat-card-actions>
+    </mat-card-content>
+  </mat-card>
+</main>
+
+<mat-paginator
+  #paginator
+  [length]="allHotels?.length"
+  [pageSize]="pageSize"
+  hidePageSize="true"
+  (page)="changePage($event)"
+  [showFirstLastButtons]="true"
+>
+</mat-paginator>
+
+<!-- <button mat-fab (click)="paget.previousPage()"><</button>
+<button mat-fab (click)="paget.pageIndex = 0">1</button>
+<button mat-fab (click)="paget.pageIndex = 1">2</button>
+<button mat-fab (click)="paget.pageIndex = 2">3</button>
+<button mat-fab (click)="paget.nextPage()">></button> -->
+<!-- {{ log(paget) }} -->
+<!-- <mat-paginator
+  style="visibility:hidden"
+  #paget
+  [length]="allHotels?.length"
+  [pageSize]="3"
+></mat-paginator> -->

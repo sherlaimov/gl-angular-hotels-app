@@ -1,0 +1,70 @@
+.mat-badge-medium.mat-badge-overlap.mat-badge-before .mat-badge-content {
+  top: 20px;
+  left: 3px;
+}
+.active-link {
+  background-color: #2a3782;
+}
+.sidenav-container {
+  height: 100%;
+}
+
+.sidenav {
+  width: 200px;
+}
+
+.sidenav .mat-toolbar {
+  background: inherit;
+}
+
+.mat-toolbar.mat-primary {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+mat-list-item {
+  a {
+    color: white;
+  }
+}
+a {
+  text-decoration: none;
+  color: white;
+  padding: 1em;
+}
+
+a:hover,
+a:active {
+  color: lightgray;
+}
+
+.navigation-items {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+mat-toolbar {
+  border-radius: 3px;
+}
+
+nav > ul {
+  display: flex;
+  justify-content: flex-end;
+}
+
+mat-nav-list.list-horizontal {
+  padding: 0;
+  .mat-list-item {
+    display: inline-block;
+    height: auto;
+    width: auto;
+  }
+}
+
+@media (max-width: 959px) {
+  mat-toolbar {
+    border-radius: 0px;
+  }
+}

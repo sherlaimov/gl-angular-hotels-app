@@ -1,0 +1,28 @@
+mat-card {
+  height: 80%;
+  width: 40%;
+  cursor: pointer;
+  margin: 1em;
+}
+.mat-card-image {
+  object-fit: cover; /*this makes de image in src fit to the size of specified below*/
+  width: 100%; /* Here you can use wherever you want to specify the width and also the height of the <img>*/
+  height: 50%;
+  margin: 0;
+}
+main {
+  height: 450px;
+  // padding: 2em 1em;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.mat-paginator {
+  background-color: transparent;
+
+  /deep/ .mat-paginator-container {
+    justify-content: space-around;
+  }
+}

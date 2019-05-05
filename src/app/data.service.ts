@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse, HttpParams } from '@angular/common/http';
 import { Observable, of, Subject } from 'rxjs';
-import { catchError, tap, map } from 'rxjs/operators';
+import { catchError, tap, map, switchMap, filter } from 'rxjs/operators';
 import { IHotel } from './interfaces/hotel';
 import { IFav } from './interfaces/fav';
 import { PageEvent } from '@angular/material/paginator';
@@ -35,21 +35,6 @@ export class DataService {
   public setHttpParams(params: {}): void {
     this.params = new HttpParams({ fromObject: params });
   }
-  public getHotels(): Observable<{ hotels: IHotel[]; link: string }> {
-    return this._http
-      .get<{ hotels: IHotel[]; link: string }>(`${this.apiUrl}/${this.hotelsUrl}`, {
-        observe: 'response',
-        params: this.params,
-      })
-      .pipe(
-        map(resp => {
-          const { headers, body: hotels } = resp;
-          const link: string = headers.get('Link');
-          return { hotels, link };
-        }),
-        catchError(this.handleError<any>('getHotels', []))
-      );
-  }
 
   public getHotelsT(event: PageEvent): Observable<IHotel[]> {
     const params: HttpParams = new HttpParams({
@@ -58,16 +43,21 @@ export class DataService {
         _page: String(event.pageIndex),
       },
     });
-
+    console.log({ params });
     return this._http.get<IHotel[]>(`${this.apiUrl}/hotels`, { ...httpOptions, params }).pipe(
       catchError((error: Error) => {
-        console.log(error);
-        // show popu
         return of([]);
       })
     );
   }
 
+  public getHotelById(id: number): Observable<IHotel> {
+    return this._http
+      .get<IHotel>(`${this.apiUrl}/hotels/${id}`, { ...httpOptions })
+      .pipe(catchError(this.handleError<IHotel>('getHotels')));
+  }
+
+  // DEPRECATED?
   public getAllHotels(): Observable<IHotel[]> {
     const hotels: Observable<IHotel[]> = this._http
       .get<IHotel[]>(`${this.apiUrl}/${this.hotelsUrl}`)
@@ -76,10 +66,21 @@ export class DataService {
     return hotels;
   }
 
-  public getFavorites(): Observable<IFav[]> {
-    return this._http
-      .get<IFav[]>(`${this.apiUrl}/${this.favoritesUrl}`, httpOptions)
-      .pipe(catchError((e: IFav[]) => of(e)));
+  public getFavorites(): Observable<any> {
+    return this._http.get<IFav[]>(`${this.apiUrl}/${this.favoritesUrl}`, httpOptions).pipe(
+      switchMap((favIds: IFav[]) => {
+        return this._http.get<IHotel[]>(`${this.apiUrl}/${this.hotelsUrl}`, httpOptions).pipe(
+          map((hotels: IHotel[]) => {
+            const filtered: IHotel[] = hotels.filter(hotel =>
+              favIds.some(fav => fav.id === hotel.id)
+            );
+            return filtered;
+          })
+        );
+      }),
+
+      catchError((e: IFav[]) => of(e))
+    );
   }
 
   public updateRatingById(id: number, rating: number): Observable<{}> {

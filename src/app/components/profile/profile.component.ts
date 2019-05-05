@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { IHotel } from '../interfaces/hotel';
+import { IHotel } from '../../interfaces/hotel';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',

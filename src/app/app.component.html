@@ -1,24 +1,5 @@
-<h1>Hotels in Your Neighborhood</h1>
+<app-main-nav>
+  <router-outlet></router-outlet>
+</app-main-nav>
 
-<div class="element">
-  <app-favorites
-    [favoriteHotels]="favoriteHotels"
-    (unfavorHotelId)="removeFromFavorites($event)"
-  ></app-favorites>
-
-  <app-list
-    [allHotels]="allHotels"
-    [shownHotels]="shownHotels"
-    [selectedHotelId]="selectedHotelId"
-    [link]="link"
-    (selectedHotel)="setHotel($event)"
-    (addedFavoritesId)="addToFavorites($event)"
-  ></app-list>
-
-  <div class="grid-3">
-    <app-weather *ngIf="currentHotel" [currentHotel]="currentHotel"></app-weather>
-    <app-profile *ngIf="currentHotel" [currentHotel]="currentHotel"></app-profile>
-  </div>
-  <div class="clear"></div>
-</div>
 <notifier-container></notifier-container>
