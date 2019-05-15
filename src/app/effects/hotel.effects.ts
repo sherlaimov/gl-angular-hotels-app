@@ -20,7 +20,6 @@ export class HotelEffects {
     ofType(HotelActionTypes.LoadHotels),
     mergeMap(() =>
       this._dataService.getAllHotels().pipe(
-        // switchMap((users: any[]) => [new LoadUsersSuccess(users), new LoadUsersSuccess2(users)])
         map((hotels: IHotel[]) => new LoadHotelsSuccess(hotels)),
         catchError((err: any) => of(new LoadHotelsError(err)))
       )

@@ -1,42 +1,36 @@
 import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-// import * as moment from 'moment';
-
-export interface Course {
-  id: number;
-  description: string;
-  iconUrl: string;
-  courseListIcon: string;
-  longDescription: string;
-  category: string;
-  lessonsCount: number;
-}
+import { Store } from '@ngrx/store';
+import { IState } from '../../reducers/index';
+import { CreateUser } from 'src/app/actions/user.actions';
 
 @Component({
   selector: 'app-dialog',
   templateUrl: './register-dialog.component.html',
   styleUrls: ['./register-dialog.component.scss'],
 })
-// @Inject(MAT_DIALOG_DATA) { description, longDescription, category }: Course
 export class RegisterDialogComponent implements OnInit {
-  form: FormGroup;
-  description: string;
+  public form: FormGroup;
 
-  constructor(private fb: FormBuilder, private dialogRef: MatDialogRef<RegisterDialogComponent>) {
-    this.description = 'Register form';
-
+  constructor(
+    private fb: FormBuilder,
+    private dialogRef: MatDialogRef<RegisterDialogComponent>,
+    private _store: Store<IState>
+  ) {
     this.form = fb.group({
-      name: ['description', Validators.required],
-      category: ['category', Validators.required],
-      // releasedAt: [moment(), Validators.required],
-      longDescription: ['longDescription', Validators.required],
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      email: ['', Validators.email],
+      gender: ['', Validators.required],
+      birthday: [''],
     });
   }
 
   ngOnInit() {}
 
-  save() {
+  public submit(): void {
+    this._store.dispatch(new CreateUser(this.form.value));
     this.dialogRef.close(this.form.value);
   }
 

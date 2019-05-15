@@ -287,12 +287,27 @@
       "rating": 0
     },
     {
-      "id": 3,
-      "rating": 0
-    },
-    {
       "id": 4,
       "rating": 0
+    }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "firstName": "John",
+      "lastName": "Doe",
+      "email": "admin@couchbooker.com",
+      "birthday": "12.18.1989",
+      "gender": "male",
+      "avatar": "assets/images/profile-3.png"
+    },
+    {
+      "firstName": "Eugene",
+      "lastName": "Sherlaimov",
+      "email": "eugene.sherlaimov@mrcplast.com",
+      "gender": "female",
+      "birthday": "2019-05-30T21:00:00.000Z",
+      "id": 2
     }
   ]
 }

@@ -7,6 +7,7 @@ import { IFav } from './interfaces/fav';
 import { PageEvent } from '@angular/material/paginator';
 
 import { environment } from '../environments/environment';
+import { IUser } from './interfaces/user';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -24,6 +25,7 @@ export class DataService {
   private apiUrl: string = environment.api;
   private hotelsUrl: string = 'hotels';
   private favoritesUrl: string = 'favorites';
+  private userUrl: string = 'users';
   private params: HttpParams = new HttpParams().set('_page', '1').set('_limit', '3');
 
   private constructor(private _http: HttpClient) {}
@@ -87,6 +89,18 @@ export class DataService {
   public unfavorHotel(id: number): Observable<{}> {
     const url: string = `${this.apiUrl}/${this.favoritesUrl}/${id}`;
     return this._http.delete(url, httpOptions);
+  }
+
+  public createUser(user: IUser): Observable<{}> {
+    return this._http
+      .post(`${this.apiUrl}/${this.userUrl}`, user, httpOptions)
+      .pipe(catchError(this.handleError<any>('createUser')));
+  }
+
+  public getUsers(): Observable<IUser[]> {
+    return this._http
+      .get<IUser[]>(`${this.apiUrl}/${this.userUrl}`, httpOptions)
+      .pipe(catchError((e: IUser[]) => of(e)));
   }
 
   private handleError<T>(operation = 'operation', result?: T) {

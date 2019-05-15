@@ -77,14 +77,14 @@ export function reducer(state = initialState, action: FavActions): State {
   }
 }
 
-export const userFeatureSelector = createFeatureSelector('fav');
+export const favFeatureSelector = createFeatureSelector('fav');
 
 export const favsTotal: MemoizedSelector<State, number> = createSelector(
-  userFeatureSelector,
+  favFeatureSelector,
   (fav: State) => fav.favorites.length
 );
 
 export const getAllFavs: MemoizedSelector<State, IFav[]> = createSelector(
-  userFeatureSelector,
+  favFeatureSelector,
   (fav: State) => fav.favorites
 );

@@ -30,6 +30,8 @@ import { EffectsModule } from '@ngrx/effects';
 import { HotelEffects } from './effects/hotel.effects';
 import * as fromFav from './reducers/fav.reducer';
 import { FavEffects } from './effects/fav.effects';
+import * as fromUser from './reducers/user.reducer';
+import { UserEffects } from './effects/user.effects';
 
 @NgModule({
   declarations: [
@@ -57,8 +59,9 @@ import { FavEffects } from './effects/fav.effects';
     MaterialModule,
     StoreModule.forRoot(reducers, { metaReducers }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
-    EffectsModule.forRoot([HotelEffects, FavEffects]),
+    EffectsModule.forRoot([HotelEffects, FavEffects, UserEffects]),
     StoreModule.forFeature('fav', fromFav.reducer),
+    StoreModule.forFeature('user', fromUser.reducer),
   ],
   entryComponents: [RegisterDialogComponent],
   providers: [],

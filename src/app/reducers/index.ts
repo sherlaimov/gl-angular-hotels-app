@@ -10,16 +10,16 @@ import * as fromUser from './user.reducer';
 import * as fromHotel from './hotel.reducer';
 import * as fromFav from './fav.reducer';
 
-export interface State {
-  user: fromUser.State;
+export interface IState {
   hotel: fromHotel.State;
   fav: fromFav.State;
+  user: fromUser.State;
 }
 
-export const reducers: ActionReducerMap<State> = {
+export const reducers: ActionReducerMap<IState> = {
   user: fromUser.reducer,
   hotel: fromHotel.reducer,
   fav: fromFav.reducer,
 };
 
-export const metaReducers: MetaReducer<State>[] = !environment.production ? [] : [];
+export const metaReducers: MetaReducer<IState>[] = !environment.production ? [] : [];

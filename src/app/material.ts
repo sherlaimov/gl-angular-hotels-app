@@ -14,6 +14,7 @@ import {
   MatDialogModule,
   MatDatepickerModule,
   MatNativeDateModule,
+  MatFormFieldModule,
 } from '@angular/material';
 
 import { LayoutModule } from '@angular/cdk/layout';
@@ -33,11 +34,12 @@ import { NgModule } from '@angular/core';
     MatListModule,
     LayoutModule,
     MatInputModule,
-    MatButtonToggleModule,
     MatBadgeModule,
     MatDialogModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatFormFieldModule,
+    MatButtonToggleModule,
   ],
   exports: [
     MatCardModule,
@@ -51,11 +53,12 @@ import { NgModule } from '@angular/core';
     MatListModule,
     LayoutModule,
     MatInputModule,
-    MatButtonToggleModule,
     MatBadgeModule,
     MatDialogModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatFormFieldModule,
+    MatButtonToggleModule,
   ],
   providers: [MatDatepickerModule],
 })
