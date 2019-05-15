@@ -10,10 +10,15 @@ import {
   OnDestroy,
 } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { IHotel } from '../../interfaces/hotel';
 import { PageEvent } from '@angular/material/paginator';
+import { Subscription, Observable } from 'rxjs';
+import { Store, select } from '@ngrx/store';
+import { MatPaginator } from '@angular/material';
+import { IHotel } from '../../interfaces/hotel';
 import { DataService } from '../../data.service';
-import { Subscription } from 'rxjs';
+import { LoadHotels, LoadPagedHotels } from '../../actions/hotel.actions';
+import { AddFav } from '../../actions/fav.actions';
+import { find, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-hotels',
@@ -21,26 +26,23 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./hotels.component.scss'],
 })
 export class HotelsComponent implements OnInit, OnDestroy {
-  public allHotels: IHotel[] = [];
-  //? do you need favoriteHotels?
-  public favoriteHotels: Set<IHotel> = new Set();
-  public shownHotels: IHotel[];
-  public selectedHotelId: number = 1;
-  public starsNumber: string | number = 'All';
   public searchValue: string;
-  // public currentHotel: IHotel;
   public sortValuesMap: {} = {};
   public pageSize: number = 4;
-  @ViewChild('paginator', { read: ElementRef }) public paginator: ElementRef;
 
-  private shownHotelSubscriber: Subscription;
-  private allHotelSubscriber: Subscription;
+  @ViewChild('paginator', { read: ElementRef }) public paginatorRef: ElementRef;
+  @ViewChild(MatPaginator) public paginator: MatPaginator;
+
+  public allHotels$: Observable<IHotel[]> = this._store.select('hotel', 'hotels');
+  public pagedHotels$: Observable<IHotel[]> = this._store.select('hotel', 'pagedHotels');
 
   public constructor(
     private _renderer: Renderer2,
     private _router: Router,
-    private _route: ActivatedRoute,
-    private _dataService: DataService
+    // private _route: ActivatedRoute,
+    private _dataService: DataService,
+    //TODO define type for store
+    private _store: Store<any>
   ) {}
 
   public setSearchValue(searchVal: string): void {
@@ -51,78 +53,42 @@ export class HotelsComponent implements OnInit, OnDestroy {
     this.sortValuesMap = { ...sortMap };
   }
 
-  public openHotel(hotelId: number): void {
-    // this._router.navigate(['/hotels'], {
-    //   queryParams: { id: hotelId },
-    // });
-  }
-
   public addToFavorites($e: Event, hotelId: number): void {
-    const favHotel: IHotel = this.shownHotels.find(hotel => hotel.id === hotelId);
-    if (this.favoriteHotels.has(favHotel)) {
-      // this.notifier.notify('warning', `You've already added ${favHotel.title} hotel.`);
-      return;
-    }
-    favHotel.rating = 0;
-    this.favoriteHotels.add(favHotel);
-    this.favoriteHotels = new Set([...Array.from(this.favoriteHotels)]);
-    // what if the method below fails?
-    this._dataService.favorHotel(hotelId).subscribe(r => {
-      // this.notifier.notify('success', `You've favorited the ${favHotel.title} hotel.`);
-    });
-  }
-
-  // PageEvent
-  public getHotels(payload: any): void {
-    console.log(payload);
-    this.shownHotelSubscriber = this._dataService
-      .getHotelsT(payload)
-      .subscribe((hotels: IHotel[]) => {
-        this.shownHotels = hotels;
-      });
+    $e.stopPropagation();
+    $e.preventDefault();
+    this._store.dispatch(new AddFav(hotelId));
   }
 
   public ngOnInit(): void {
-    this.allHotelSubscriber = this._dataService.getAllHotels().subscribe(hotels => {
-      this.allHotels.push(...hotels);
-    });
-
-    this._route.queryParams.subscribe((data: Params) => {
-      const { pageIndex = 1, pageSize = 4 } = data;
-      this.getHotels({ pageIndex, pageSize });
-    });
-
-    const pageSize = this.pageSize;
+    this._store.dispatch(new LoadPagedHotels({ pageIndex: 1, pageSize: this.pageSize }));
     this._router.navigate(['/hotels'], {
-      queryParams: { pageIndex: 1, pageSize },
+      queryParams: { pageIndex: 1, pageSize: this.pageSize },
     });
+
+    // this._route.queryParams.subscribe((data: Params) => {
+    // });
   }
 
   public changePage(event: PageEvent): void {
     const { pageIndex, pageSize } = event;
-    console.log(event);
     this._router.navigate(['/hotels'], {
       queryParams: { pageIndex: pageIndex + 1, pageSize },
     });
 
-    this.getHotels({ ...event, pageIndex: pageIndex + 1 });
-  }
-
-  public sortByRating(value: string | number): void {
-    this.starsNumber = value;
+    this._store.dispatch(new LoadPagedHotels({ pageIndex: pageIndex + 1, pageSize }));
   }
 
   public ngAfterViewInit(): void {
     this._renderer.insertBefore(
-      this.paginator.nativeElement.querySelector('.mat-paginator-navigation-next.mat-icon-button')
-        .parentNode,
-      this.paginator.nativeElement.querySelector('.mat-paginator-range-label'),
-      this.paginator.nativeElement.querySelector('.mat-paginator-navigation-next.mat-icon-button')
+      this.paginatorRef.nativeElement.querySelector(
+        '.mat-paginator-navigation-next.mat-icon-button'
+      ).parentNode,
+      this.paginatorRef.nativeElement.querySelector('.mat-paginator-range-label'),
+      this.paginatorRef.nativeElement.querySelector(
+        '.mat-paginator-navigation-next.mat-icon-button'
+      )
     );
   }
 
-  public ngOnDestroy(): void {
-    this.shownHotelSubscriber.unsubscribe();
-    this.allHotelSubscriber.unsubscribe();
-  }
+  public ngOnDestroy(): void {}
 }

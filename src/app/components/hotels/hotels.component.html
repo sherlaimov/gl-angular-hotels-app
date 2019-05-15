@@ -4,12 +4,13 @@
 ></app-hotels-filters>
 <main>
   <mat-card
-    *ngFor="let hotel of shownHotels | filterHotels: searchValue | sortByRating: sortValuesMap"
+    *ngFor="
+      let hotel of pagedHotels$ | async | filterHotels: searchValue | sortByRating: sortValuesMap
+    "
     class="activity-row"
     [ngClass]="{ active: selectedHotelId === hotel.id }"
     routerLink="/hotels/{{ hotel.id }}"
   >
-    <!-- (click)="openHotel(hotel.id)" -->
     <mat-card-header>
       <img mat-card-avatar class="example-header-image" [src]="hotel.profile?.photo" />
       <mat-card-title>{{ hotel.title }}</mat-card-title>
@@ -41,7 +42,7 @@
 
 <mat-paginator
   #paginator
-  [length]="allHotels?.length"
+  [length]="(allHotels$ | async)?.length"
   [pageSize]="pageSize"
   hidePageSize="true"
   (page)="changePage($event)"

@@ -19,7 +19,7 @@ const httpOptions = {
   providedIn: 'root',
 })
 export class DataService {
-  public actionSource: Subject<string | {}> = new Subject<string | {}>();
+  public actionSource: Subject<{}> = new Subject<{}>();
   public hotelsAction$: Observable<string | {}> = this.actionSource.asObservable();
   private apiUrl: string = environment.api;
   private hotelsUrl: string = 'hotels';
@@ -36,7 +36,7 @@ export class DataService {
     this.params = new HttpParams({ fromObject: params });
   }
 
-  public getHotelsT(event: PageEvent): Observable<IHotel[]> {
+  public getHotelsByParams(event: PageEvent): Observable<IHotel[]> {
     const params: HttpParams = new HttpParams({
       fromObject: {
         _limit: String(event.pageSize),
@@ -57,7 +57,6 @@ export class DataService {
       .pipe(catchError(this.handleError<IHotel>('getHotels')));
   }
 
-  // DEPRECATED?
   public getAllHotels(): Observable<IHotel[]> {
     const hotels: Observable<IHotel[]> = this._http
       .get<IHotel[]>(`${this.apiUrl}/${this.hotelsUrl}`)
@@ -66,21 +65,10 @@ export class DataService {
     return hotels;
   }
 
-  public getFavorites(): Observable<any> {
-    return this._http.get<IFav[]>(`${this.apiUrl}/${this.favoritesUrl}`, httpOptions).pipe(
-      switchMap((favIds: IFav[]) => {
-        return this._http.get<IHotel[]>(`${this.apiUrl}/${this.hotelsUrl}`, httpOptions).pipe(
-          map((hotels: IHotel[]) => {
-            const filtered: IHotel[] = hotels.filter(hotel =>
-              favIds.some(fav => fav.id === hotel.id)
-            );
-            return filtered;
-          })
-        );
-      }),
-
-      catchError((e: IFav[]) => of(e))
-    );
+  public getFavorites(): Observable<IFav[]> {
+    return this._http
+      .get<IFav[]>(`${this.apiUrl}/${this.favoritesUrl}`, httpOptions)
+      .pipe(catchError((e: IFav[]) => of(e)));
   }
 
   public updateRatingById(id: number, rating: number): Observable<{}> {
@@ -89,11 +77,8 @@ export class DataService {
       .pipe(catchError((e: Observable<{}>) => e));
   }
 
-  public favorHotel(id: number): Observable<{}> {
-    const payload: IFav = {
-      id,
-      rating: 0,
-    };
+  public favorHotel(favoredHotelId: number): Observable<{}> {
+    const payload: IFav = { id: favoredHotelId, rating: 0 };
     return this._http
       .post(`${this.apiUrl}/${this.favoritesUrl}`, payload, httpOptions)
       .pipe(catchError(this.handleError<any>('favorHotel')));

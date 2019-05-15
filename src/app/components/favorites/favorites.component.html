@@ -1,6 +1,6 @@
 <h1>Your Favorites</h1>
 <main>
-  <mat-card *ngFor="let hotel of favoriteHotels | sortFavs">
+  <mat-card *ngFor="let hotel of favoriteHotels | async | sortFavs">
     <mat-card-header>
       <img mat-card-avatar class="example-header-image" [src]="hotel.profile?.photo" />
       <mat-card-title>{{ hotel.title }}</mat-card-title>
@@ -13,10 +13,10 @@
         {{ hotel.description }}
       </p>
       <mat-card-actions>
-        <button mat-button class="favor" (click)="emitUnfavorHotelId($event, hotel.id)">
-          Favor hotel
+        <button mat-button class="favor" (click)="unfavorHotel($event, hotel.id)">
+          Unfavor
           <mat-icon class="example-icon" aria-hidden="false" aria-label="Example heart icon"
-            >favorite</mat-icon
+            >close</mat-icon
           >
         </button>
       </mat-card-actions>

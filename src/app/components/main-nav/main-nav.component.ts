@@ -1,20 +1,42 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { MatDialog, MatDialogConfig } from '@angular/material';
+import { RegisterDialogComponent } from '../register-dialog/register-dialog.component';
+import { Store, select } from '@ngrx/store';
+import { favsTotal } from 'src/app/reducers/fav.reducer';
 
 @Component({
   selector: 'app-main-nav',
   templateUrl: './main-nav.component.html',
-  styleUrls: ['./main-nav.component.scss']
+  styleUrls: ['./main-nav.component.scss'],
 })
-export class MainNavComponent {
+export class MainNavComponent implements OnInit {
+  isHandset$: Observable<boolean> = this.breakpointObserver
+    .observe(Breakpoints.Handset)
+    .pipe(map(result => result.matches));
 
-  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
-    .pipe(
-      map(result => result.matches)
-    );
+  public favCounter: Observable<number> = this._store.pipe(select(favsTotal));
 
-  constructor(private breakpointObserver: BreakpointObserver) {}
+  constructor(
+    private breakpointObserver: BreakpointObserver,
+    private dialog: MatDialog,
+    private _store: Store<any>
+  ) {}
 
+  public openDialog() {
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = true;
+    dialogConfig.minWidth = '30%';
+    dialogConfig.minHeight = '30%';
+
+    const dialogRef = this.dialog.open(RegisterDialogComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(data => console.log('Dialog output:', data));
+  }
+  public ngOnInit(): void {
+    // this.openDialog();
+  }
 }

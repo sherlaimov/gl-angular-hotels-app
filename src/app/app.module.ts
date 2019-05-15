@@ -21,6 +21,15 @@ import { MainNavComponent } from './components/main-nav/main-nav.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { HotelDetailsComponent } from './components/hotel-details/hotel-details.component';
 import { HotelsFiltersComponent } from './components/hotels/hotels-filters/hotels-filters.component';
+import { RegisterDialogComponent } from './components/register-dialog/register-dialog.component';
+import { StoreModule } from '@ngrx/store';
+import { reducers, metaReducers } from './reducers';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
+import { EffectsModule } from '@ngrx/effects';
+import { HotelEffects } from './effects/hotel.effects';
+import * as fromFav from './reducers/fav.reducer';
+import { FavEffects } from './effects/fav.effects';
 
 @NgModule({
   declarations: [
@@ -36,17 +45,22 @@ import { HotelsFiltersComponent } from './components/hotels/hotels-filters/hotel
     PageNotFoundComponent,
     HotelDetailsComponent,
     HotelsFiltersComponent,
+    RegisterDialogComponent,
   ],
   imports: [
     HttpClientModule,
     BrowserModule,
     AppRoutingModule,
-    // FormsModule,
     ReactiveFormsModule,
     NotifierModule.withConfig(customNotifierOptions),
     BrowserAnimationsModule,
     MaterialModule,
+    StoreModule.forRoot(reducers, { metaReducers }),
+    !environment.production ? StoreDevtoolsModule.instrument() : [],
+    EffectsModule.forRoot([HotelEffects, FavEffects]),
+    StoreModule.forFeature('fav', fromFav.reducer),
   ],
+  entryComponents: [RegisterDialogComponent],
   providers: [],
   bootstrap: [AppComponent],
 })
