@@ -1,0 +1,16 @@
+<h1>Users</h1>
+<main>
+  <mat-card *ngFor="let user of users$ | async">
+    <mat-card-header>
+      <img mat-card-avatar class="example-header-image" [src]="user?.avatar" />
+      <mat-card-title>{{ user.firstName }}</mat-card-title>
+      <mat-card-subtitle>{{ user.lastName }}</mat-card-subtitle>
+      <mat-card-subtitle>{{ user.email }}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <p>
+        {{ user.birthday }}
+      </p>
+    </mat-card-content>
+  </mat-card>
+</main>

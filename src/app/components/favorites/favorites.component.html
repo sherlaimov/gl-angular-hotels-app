@@ -1,6 +1,6 @@
 <h1>Your Favorites</h1>
 <main>
-  <mat-card *ngFor="let hotel of favoriteHotels | async | sortFavs">
+  <mat-card *ngFor="let hotel of favoriteHotels$ | async | sortFavs">
     <mat-card-header>
       <img mat-card-avatar class="example-header-image" [src]="hotel.profile?.photo" />
       <mat-card-title>{{ hotel.title }}</mat-card-title>
@@ -20,18 +20,18 @@
           >
         </button>
       </mat-card-actions>
-      <span class="rating">{{ hotel.rating }}</span>
       <mat-card-actions>
+        <span class="rating">{{ hotel.rating }}</span>
         <button mat-button class="favor" (click)="updateRating(hotel.id, 1)">
           Upvote
           <mat-icon class="example-icon" aria-hidden="false" aria-label="Example heart icon"
-            >favorite</mat-icon
+            >thumb_up</mat-icon
           >
         </button>
         <button mat-button class="favor" (click)="updateRating(hotel.id, -1)">
           Downvote
           <mat-icon class="example-icon" aria-hidden="false" aria-label="Example heart icon"
-            >favorite</mat-icon
+            >thumb_down</mat-icon
           >
         </button>
       </mat-card-actions>

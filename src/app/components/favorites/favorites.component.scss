@@ -4,15 +4,17 @@ main {
   align-items: center;
   flex-direction: row;
   flex-wrap: wrap;
-  // width: 950px;
 }
 
 mat-card {
-  height: 450px;
+  height: 500px;
   width: 250px;
   margin-bottom: 1em;
 }
-
+mat-card-actions {
+  display: flex;
+  justify-content: center;
+}
 .mat-card-image {
   object-fit: cover; /*this makes de image in src fit to the size of specified below*/
   width: 100%; /* Here you can use wherever you want to specify the width and also the height of the <img>*/

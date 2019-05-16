@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-// import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
@@ -32,6 +31,8 @@ import * as fromFav from './reducers/fav.reducer';
 import { FavEffects } from './effects/fav.effects';
 import * as fromUser from './reducers/user.reducer';
 import { UserEffects } from './effects/user.effects';
+import { LoginDialogComponent } from './components/login-dialog/login-dialog.component';
+import { UsersComponent } from './components/users/users.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,8 @@ import { UserEffects } from './effects/user.effects';
     HotelDetailsComponent,
     HotelsFiltersComponent,
     RegisterDialogComponent,
+    LoginDialogComponent,
+    UsersComponent,
   ],
   imports: [
     HttpClientModule,
@@ -63,7 +66,7 @@ import { UserEffects } from './effects/user.effects';
     StoreModule.forFeature('fav', fromFav.reducer),
     StoreModule.forFeature('user', fromUser.reducer),
   ],
-  entryComponents: [RegisterDialogComponent],
+  entryComponents: [RegisterDialogComponent, LoginDialogComponent],
   providers: [],
   bootstrap: [AppComponent],
 })

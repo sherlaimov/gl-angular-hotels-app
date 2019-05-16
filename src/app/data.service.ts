@@ -45,7 +45,6 @@ export class DataService {
         _page: String(event.pageIndex),
       },
     });
-    console.log({ params });
     return this._http.get<IHotel[]>(`${this.apiUrl}/hotels`, { ...httpOptions, params }).pipe(
       catchError((error: Error) => {
         return of([]);

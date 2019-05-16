@@ -9,6 +9,8 @@ import {
 
 import { FavActions, FavActionTypes } from '../actions/fav.actions';
 import { IFav } from '../interfaces/fav';
+import { ISize } from 'selenium-webdriver';
+import { IState } from '.';
 export interface State {
   isLoading: boolean;
   favorites: IHotel[];
@@ -79,7 +81,7 @@ export function reducer(state = initialState, action: FavActions): State {
 
 export const favFeatureSelector = createFeatureSelector('fav');
 
-export const favsTotal: MemoizedSelector<State, number> = createSelector(
+export const favsTotal: MemoizedSelector<IState, number> = createSelector(
   favFeatureSelector,
   (fav: State) => fav.favorites.length
 );

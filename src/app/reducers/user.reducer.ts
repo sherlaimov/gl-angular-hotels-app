@@ -5,11 +5,13 @@ import { UserActions, UserActionTypes } from '../actions/user.actions';
 import { IState } from '.';
 
 export interface State {
+  isLoggedIn: boolean;
   users: IUser[];
 }
 
 export const initialState: State = {
   users: [],
+  isLoggedIn: false,
 };
 
 export function reducer(state = initialState, action: UserActions): State {
@@ -33,6 +35,15 @@ export function reducer(state = initialState, action: UserActions): State {
       return {
         ...state,
         users: [...state.users, user],
+      };
+    case UserActionTypes.LoginUser:
+      return {
+        ...state,
+      };
+    case UserActionTypes.LoginUserSuccess:
+      return {
+        ...state,
+        isLoggedIn: true,
       };
     default:
       return state;

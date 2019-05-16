@@ -279,15 +279,11 @@
   ],
   "favorites": [
     {
-      "id": 8,
+      "id": 11,
       "rating": 1
     },
     {
-      "id": 5,
-      "rating": 0
-    },
-    {
-      "id": 4,
+      "id": 1,
       "rating": 0
     }
   ],
@@ -299,15 +295,18 @@
       "email": "admin@couchbooker.com",
       "birthday": "12.18.1989",
       "gender": "male",
-      "avatar": "assets/images/profile-3.png"
+      "avatar": "assets/images/profile-3.png",
+      "password": "admin"
     },
     {
       "firstName": "Eugene",
       "lastName": "Sherlaimov",
-      "email": "eugene.sherlaimov@mrcplast.com",
+      "email": "eugene@booker.com",
       "gender": "female",
       "birthday": "2019-05-30T21:00:00.000Z",
-      "id": 2
+      "id": 2,
+      "password": "user",
+      "avatar": "assets/images/kevin-spacey.png"
     }
   ]
 }

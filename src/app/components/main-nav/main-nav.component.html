@@ -8,7 +8,7 @@
           <a routerLink="/hotels" routerLinkActive="active-link">Home</a>
         </mat-list-item>
         <mat-list-item
-          matBadge="{{ favCounter | async }}"
+          matBadge="{{ favCounter$ | async }}"
           matBadgePosition="above before"
           matBadgeColor="accent"
         >
@@ -20,26 +20,20 @@
         <mat-list-item>
           <a routerLink="/contact" routerLinkActive="active-link">Contact Us</a>
         </mat-list-item>
+        <mat-list-item *ngIf="isLoggedIn$ | async">
+          <a routerLink="/users" routerLinkActive="active-link">Users</a>
+        </mat-list-item>
       </mat-nav-list>
       <mat-nav-list class="list-horizontal right-hand">
         <mat-list-item>
-          <a (click)="openDialog()">Register</a>
+          <a (click)="openLoginDialog()">Login</a>
         </mat-list-item>
       </mat-nav-list>
-      <!-- <a mat-list-item href="#">Link 2</a>
-      <a mat-list-item href="#">Link 3</a> -->
-
-      <!-- Card <mat-action-list>
-        <button mat-list-item (click)="save()">Save</button>
-        <button mat-list-item (click)="undo()">Undo</button>
-      </mat-action-list> -->
-
-      <!-- <mat-icon class="example-icon" aria-hidden="false" aria-label="Example heart icon"
-        >favorite</mat-icon
-      >
-      <mat-icon class="example-icon" aria-hidden="false" aria-label="Example delete icon"
-        >delete</mat-icon
-      > -->
+      <mat-nav-list class="list-horizontal right-hand">
+        <mat-list-item>
+          <a (click)="openRegisterDialog()">Register</a>
+        </mat-list-item>
+      </mat-nav-list>
     </mat-toolbar>
     <!-- Add Content Here -->
 

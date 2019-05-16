@@ -1,19 +1,18 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component } from '@angular/core';
 import { IHotel } from '../../interfaces/hotel';
-import { DataService } from '../../data.service';
-import { Subscription, Observable } from 'rxjs';
-import { IFav } from 'src/app/interfaces/fav';
+import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { RemoveFromFavs, UpdateFavRating } from '../../actions/fav.actions';
+import { IState } from 'src/app/reducers';
 @Component({
   selector: 'app-favorites',
   templateUrl: './favorites.component.html',
   styleUrls: ['./favorites.component.scss'],
 })
-export class FavoritesComponent implements OnInit, OnDestroy {
-  public favoriteHotels: Observable<IHotel> = this._store.select('fav', 'favorites');
+export class FavoritesComponent {
+  public favoriteHotels$: Observable<IHotel[]> = this._store.select('fav', 'favorites');
 
-  public constructor(private _dataService: DataService, private _store: Store<any>) {}
+  public constructor(private _store: Store<IState>) {}
 
   public unfavorHotel($e: Event, hotelId: number): void {
     $e.stopPropagation();
@@ -21,11 +20,7 @@ export class FavoritesComponent implements OnInit, OnDestroy {
     this._store.dispatch(new RemoveFromFavs(hotelId));
   }
 
-  public ngOnInit(): void {}
-
   public updateRating(hotelId: number, val: number): void {
     this._store.dispatch(new UpdateFavRating({ val, hotelId }));
   }
-
-  public ngOnDestroy(): void {}
 }

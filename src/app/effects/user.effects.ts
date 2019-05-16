@@ -9,10 +9,13 @@ import {
   LoadUsersSuccess,
   LoadUsersError,
   CreateUserSuccess,
+  LoginUserSuccess,
+  LoginUserError,
 } from '../actions/user.actions';
 import { IUser } from '../interfaces/user';
 import { IState } from '../reducers';
 import { Store } from '@ngrx/store';
+import { NotifierService } from 'angular-notifier';
 
 @Injectable()
 export class UserEffects {
@@ -41,10 +44,31 @@ export class UserEffects {
       );
     })
   );
+  @Effect()
+  private loginUser$: Observable<UserActions> = this._actions$.pipe(
+    ofType(UserActionTypes.LoginUser),
+    mergeMap(action => {
+      const { password, email } = action.payload;
+      return this._dataService.getUsers().pipe(
+        map((users: IUser[]) => {
+          const userWithSameEmail: IUser = users.find(user => user.email === email);
+          if (userWithSameEmail !== undefined && userWithSameEmail.password === password) {
+            window.localStorage.setItem('isLoggedIn', 'true');
+            return new LoginUserSuccess();
+          } else {
+            this._notifierService.notify('error', 'Incorrect email or password');
+            return new LoginUserError();
+          }
+        }),
+        catchError((err: any) => of(new LoadUsersError()))
+      );
+    })
+  );
 
   constructor(
     private _actions$: Actions<UserActions>,
     private _dataService: DataService,
-    private _store: Store<IState>
+    private _store: Store<IState>,
+    private _notifierService: NotifierService
   ) {}
 }

@@ -7,6 +7,9 @@ export enum UserActionTypes {
   LoadUsersError = '[User] Load Users Error',
   CreateUser = '[User] Create User',
   CreateUserSuccess = '[User] Create User Success',
+  LoginUser = '[User] Login User',
+  LoginUserSuccess = '[User] Login User Success',
+  LoginUserError = '[User] Login User Error',
 }
 
 export class LoadUsers implements Action {
@@ -31,10 +34,24 @@ export class CreateUserSuccess implements Action {
   readonly type = UserActionTypes.CreateUserSuccess;
   public constructor(public payload: IUser) {}
 }
+export class LoginUser implements Action {
+  readonly type = UserActionTypes.LoginUser;
+  public constructor(public payload: { password: string; email: string }) {}
+}
+export class LoginUserSuccess implements Action {
+  readonly type = UserActionTypes.LoginUserSuccess;
+}
+
+export class LoginUserError implements Action {
+  readonly type = UserActionTypes.LoginUserError;
+}
 
 export type UserActions =
   | LoadUsers
   | LoadUsersSuccess
   | LoadUsersError
   | CreateUser
-  | CreateUserSuccess;
+  | CreateUserSuccess
+  | LoginUser
+  | LoginUserSuccess
+  | LoginUserError;
